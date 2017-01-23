@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+    
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>MHacks</title>
+        <meta name="description" content="An interactive getting started guide for Brackets.">
+        <link rel="stylesheet" href="main.css">
+    </head>
+    <body bgcolor="yellow">
+        <div>
+          <label>
+            Name:
+            <input type="text" id="txt-name">
+          </label>
+        </div>
+        <div>
+          <label>
+            Price:
+            <input type="text" id="txt-price">
+          </label>
+        </div>
+        <div>
+          <input type="button" value="Add" id="btn-add">
+        </div>
+        <div id="list"></div>
+        
+        <script>
+            (function() {
+          var nameField = document.getElementById("txt-name"),
+            priceField = document.getElementById("txt-price");
+
+          // On page load, get the current set or a blank array
+          var list = JSON.parse(localStorage.getItem("list") || "[]");
+
+          // Show the entries
+          list.forEach(showItem);
+
+          // "Add" button handler
+          document.getElementById("btn-add").addEventListener(
+            "click",
+            function() {
+              // Get the name and price
+              var item = {
+                name: nameField.value,
+                price: priceField.value
+              };
+
+              // Add to the list
+              list.push(item);
+
+              // Display it
+              showItem(item);
+
+              // Update local storage
+              localStorage.setItem("list", JSON.stringify(list));
+            },
+            false
+          );
+
+          // Function for showing an item
+          function showItem(item) {
+            var div = document.createElement('div');
+            div.innerHTML =
+              "Name: " + escapeHTML(item.name) +
+              ", price: " + escapeHTML(item.price);
+            document.getElementById("list").appendChild(div);
+          }
+
+          // Function for escaping HTML in the string
+          function escapeHTML(str) {
+            return str.replace(/&/g, "&amp;").replace(/</g, "&lt;");
+          }
+        })();
+        </script>
+    </body>
+</html>
+<!--
+
+    [[[[[[[[[[[[[[[      ]]]]]]]]]]]]]]]
+    [::::::::::::::      ::::::::::::::]
+    [::::::::::::::      ::::::::::::::]
+    [::::::[[[[[[[:      :]]]]]]]::::::]
+    [:::::[                      ]:::::]
+    [:::::[                      ]:::::]
+    [:::::[                      ]:::::]
+    [:::::[                      ]:::::]
+    [:::::[     CODE THE WEB     ]:::::]
+    [:::::[  http://brackets.io  ]:::::]
+    [:::::[                      ]:::::]
+    [:::::[                      ]:::::]
+    [:::::[                      ]:::::]
+    [:::::[                      ]:::::]
+    [::::::[[[[[[[:      :]]]]]]]::::::]
+    [::::::::::::::      ::::::::::::::]
+    [::::::::::::::      ::::::::::::::]
+    [[[[[[[[[[[[[[[      ]]]]]]]]]]]]]]]
+
+-->

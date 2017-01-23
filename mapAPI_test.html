@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>My Map</title>
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+      
+      
+    <script>
+
+        
+var temp = JSON.parse(localStorage["user"] || "[]");
+       
+function initMap() {
+  var userLat = []
+  var userLng = []
+  var userLatLng = []
+  var userNum = temp.length
+  //alert(userNum)
+  var myLat = 42.19
+  var myLng = -82.2
+  var myLatLng = {lat: myLat, lng: myLng}
+    
+
+  
+  for (var i = 0; i < userNum; i++) {
+      //userLat[i] = temp[i].Address.lat;
+      //userLng[i] = temp[i].Address.lng;
+      userLatLng[i] = temp[i].Address;
+      //alert(temp[i].Address.lat)
+  }
+  //myLat[0] = -25.363 + i * 10; myLng[0] =  131.044 + i * 4;
+  //var myLatLng = {lat: myLat[0], lng: myLng[0]};
+
+  
+    
+  var map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 4,
+    center: myLatLng
+  });
+  for (var j = 0; j < userNum; j++) {
+    var marker = new google.maps.Marker({
+        position: userLatLng[j],
+        map: map,
+        title: 'shit'
+    });
+  }
+}
+
+    </script>
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAPIuocbSsDSRev5iYw_JKWO4y0X5kJWcY&signed_in=true&callback=initMap"></script>
+  </body>
+</html>
